@@ -73,7 +73,9 @@ export default Vue.extend({
 
   computed: {
     horizSide () {
-      return this.$q.lang.rtl ? 'right' : 'left'
+      return this.$q.lang.rtl === true
+        ? 'right'
+        : 'left'
     },
 
     anchorOrigin () {
@@ -281,7 +283,7 @@ export default Vue.extend({
 
   beforeDestroy () {
     // When the menu is destroyed while open we can only emit the event on anchorEl
-    if (this.value === true && this.anchorEl !== void 0) {
+    if (this.showing === true && this.anchorEl !== void 0) {
       this.anchorEl.dispatchEvent(
         create('popup-hide', { bubbles: true })
       )

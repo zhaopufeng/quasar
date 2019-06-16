@@ -24,6 +24,7 @@
         <q-btn label="Sliders" flat color="primary" @click="sliders = true" />
         <q-btn label="Layout Bottom" flat color="primary" @click="layoutBottom = true" />
         <q-btn label="Close popup test" flat color="primary" @click="closePopupTest = true" />
+        <q-btn label="@input handler" flat color="primary" @click="inputHandler = true" />
       </div>
     </div>
 
@@ -675,6 +676,26 @@
       </q-card>
     </q-dialog>
 
+    <q-dialog ref="inputHandler" :value="inputHandler" @input="onInput">
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">
+            You can't get rid of me
+          </div>
+        </q-card-section>
+
+        <q-card-section>
+          <q-toggle v-model="inputHandlerHadEnough" label="OK, now really let me close" />
+          <q-toggle v-model="inputHandler" label="Model" />
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="OK" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
+    <q-btn label="input handler test" @click="inputHandlerTest" />
     <div class="text-center text-caption q-mt-xl" style="height: 1500px">
       Page has scroll on purpose
     </div>
@@ -738,7 +759,10 @@ export default {
       selectOptions: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'],
 
       closePopupTest: false,
-      closePopupBtn: false
+      closePopupBtn: false,
+
+      inputHandler: false,
+      inputHandlerHadEnough: false
     }
   },
 
@@ -759,6 +783,34 @@ export default {
 
     closePopupBtnHandler () {
       console.log('closePopupBtnHandler')
+    },
+
+    onInput (val) {
+      if (val) {
+        this.inputHandler = true
+      }
+      else if (this.inputHandlerHadEnough) {
+        this.inputHandler = false
+      }
+    },
+
+    inputHandlerTest () {
+      /*
+      this.$refs.inputHandler.show()
+      this.$refs.inputHandler.show()
+      this.$refs.inputHandler.show()
+      this.$refs.inputHandler.show()
+      this.$refs.inputHandler.show()
+      this.$refs.inputHandler.hide()
+      this.$refs.inputHandler.show()
+      this.$refs.inputHandler.hide()
+      */
+      this.$refs.inputHandler.hide()
+      this.$refs.inputHandler.show()
+      this.$refs.inputHandler.show()
+      this.$refs.inputHandler.hide()
+      this.$refs.inputHandler.show()
+      this.$refs.inputHandler.hide()
     }
   }
 }
